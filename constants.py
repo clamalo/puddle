@@ -1,3 +1,4 @@
+RAW_DIRECTORY = '/Volumes/T9/monthly/'
 FIGURES_DIRECTORY = '/Users/clamalo/documents/puddle/figures/'
 
 

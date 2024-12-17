@@ -1,4 +1,5 @@
 import json
+
 from constants import MIN_LAT, MAX_LAT, MIN_LON, MAX_LON, TILE_SIZE, FINE_RESOLUTION
 
 
@@ -6,7 +7,7 @@ def tile_bounds():
     # Determine how many degrees each tile covers
     degree_step = TILE_SIZE * FINE_RESOLUTION
     
-    tiles = {}
+    tiles_dict = {}
     tile_counter = 0
     
     current_lat = MIN_LAT
@@ -18,7 +19,7 @@ def tile_bounds():
             lon_upper = current_lon + degree_step
             
             # Store the full tile
-            tiles[tile_counter] = [[current_lat, lat_upper],
+            tiles_dict[tile_counter] = [[current_lat, lat_upper],
                                    [current_lon, lon_upper]]
             tile_counter += 1
             
@@ -26,4 +27,4 @@ def tile_bounds():
             
         current_lat += degree_step
     
-    return tiles
+    return tiles_dict
