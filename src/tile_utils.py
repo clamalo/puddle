@@ -1,12 +1,37 @@
 import numpy as np
 
-from constants import COARSE_RESOLUTION, FINE_RESOLUTION, PADDING
-from tile_bounds import tile_bounds
+from src.constants import MIN_LAT, MIN_LON, MAX_LAT, MAX_LON, TILE_SIZE, COARSE_RESOLUTION, FINE_RESOLUTION, PADDING
+
+
+def tiles():
+    # Determine how many degrees each tile covers
+    tile_size_degrees = TILE_SIZE * FINE_RESOLUTION
+    
+    tiles_dict = {}
+    tile_counter = 0
+    
+    current_lat = MIN_LAT
+    while current_lat + tile_size_degrees <= MAX_LAT:
+        lat_upper = current_lat + tile_size_degrees
+        
+        current_lon = MIN_LON
+        while current_lon + tile_size_degrees <= MAX_LON:
+            lon_upper = current_lon + tile_size_degrees
+            
+            # Store the full tile
+            tiles_dict[tile_counter] = [[current_lat, lat_upper],
+                                   [current_lon, lon_upper]]
+            tile_counter += 1
+            
+            current_lon += tile_size_degrees
+            
+        current_lat += tile_size_degrees
+    
+    return tiles_dict
 
 
 def tile_coordinates(tile):
-
-    bounds = tile_bounds()[tile]
+    bounds = tiles()[tile]
 
     min_lat, max_lat = bounds[0]
     min_lon, max_lon = bounds[1]
